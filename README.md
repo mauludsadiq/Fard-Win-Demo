@@ -95,6 +95,22 @@ fardverify trace --out out/control_tower
 
 Re-running this on any machine (Windows, macOS, Linux) produces identical outputs and identical receipts.
 
+## Verification Challenge
+
+Hash the generated Python demo plot:
+
+```bash
+shasum -a 256 out/py_demo_hist.png
+```
+
+Expected hash:
+
+```text
+9bb85ba1337c0363b8242924a171c47dfb73d34bac63cb40e7d3443f51b6da9a  out/py_demo_hist.png
+```
+
+If your hash matches, you have reproduced the same plot bytes and the same deterministic pipeline.
+
 ## Status
 
 This repository is **running end-to-end**.

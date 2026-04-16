@@ -16,19 +16,69 @@ let json_run = j.parse_bench("json_parse_probe", json_text) in
 let nums = list.range(1, 1001) in
 let par_run = par.squares_over("parallel_probe", nums, 10000) in
 
+let startup_row = bench.value_row(startup) in
+let json_row = {
+  name: rec.get(json_run, "name"),
+  duration_ms: rec.get(json_run, "duration_ms"),
+  receipt_digest: rec.get(rec.get(json_run, "receipt"), "receipt_digest")
+} in
+let parallel_row = par.summary_row(par_run) in
+
+let startup_artifact = {
+  name: rec.get(startup_row, "name")
+} in
+
+let json_artifact = {
+  name: rec.get(json_row, "name")
+} in
+
+let parallel_artifact = {
+  name: rec.get(parallel_row, "name"),
+  count_in: rec.get(parallel_row, "count_in"),
+  count_out: rec.get(parallel_row, "count_out"),
+  sum: rec.get(parallel_row, "sum")
+} in
+
 let rows = [
   report.receipt_row("startup", rec.get(startup, "receipt")),
   report.receipt_row("json", rec.get(json_run, "receipt")),
   report.receipt_row("parallel", rec.get(par_run, "receipt"))
 ] in
 
-{
-  startup: bench.value_row(startup),
-  json: {
-    name: rec.get(json_run, "name"),
-    duration_ms: rec.get(json_run, "duration_ms"),
-    receipt_digest: rec.get(rec.get(json_run, "receipt"), "receipt_digest")
-  },
-  parallel: par.summary_row(par_run),
-  receipts_table: report.receipts_table(rows)
-}
+let _startup_artifact =
+  report.write_json(
+    "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_startup.json",
+    startup_artifact
+  ) in
+
+let _json_artifact =
+  report.write_json(
+    "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_json.json",
+    json_artifact
+  ) in
+
+let _parallel_artifact =
+  report.write_json(
+    "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_parallel.json",
+    parallel_artifact
+  ) in
+
+let summary = {
+  startup: startup_row,
+  json: json_row,
+  parallel: parallel_row,
+  receipts_table: report.receipts_table(rows),
+  artifact_paths: {
+    startup: "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_startup.json",
+    json: "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_json.json",
+    parallel: "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_parallel.json"
+  }
+} in
+
+let _summary_artifact =
+  report.write_json(
+    "/Users/g.bogans/Downloads/FARD WIN DEMO/out/rust_demo_summary.json",
+    summary
+  ) in
+
+summary

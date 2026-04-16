@@ -10,4 +10,4 @@
 {"cid":"sha256:88fa5b87eb1712b27cbdb811c820e08212a41cf2da1220e9be6d0f33519275c6","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/json-core/src","t":"module_resolve"}
 {"cid":"sha256:a5fb362955955f06d78746451c74c5e3458be27b2304bbb79b5139cef1cf4124","kind":"std","name":"std/io","t":"module_resolve"}
 {"cid":"sha256:04f6d7bcc8fdd61a30221433987fd6d595cfd3322c46291896193bbc640a1a19","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/report-core/src","t":"module_resolve"}
-{"cid":"sha256:a916fd3bad0960abc45b2206a4a23736de00d97cbd8682077f3a4e79bc7df742","t":"module_graph"}
+{"cid":"sha256:c3eb27c5232f8f39d8ea72dcc171e9abaae78c6ab8772831fca94f474b9a219d","t":"module_graph"}

@@ -1,0 +1,1 @@
+{"code":"ERROR_BADARG","message":"ERROR_BADARG   --> /tmp/report_core_smoke.fard:5:55: ERROR_BADARG list.concat expects 1 arg","partial_trace_digest":"sha256:1ceefcf3478abd141708da0bc8babcb1dbd3c1c8707493ad154a761041bf92e5","span":{"col":55,"file":"/tmp/report_core_smoke.fard","line":5},"witnessed_failure":true}

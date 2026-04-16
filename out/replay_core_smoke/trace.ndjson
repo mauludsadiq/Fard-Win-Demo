@@ -1,0 +1,8 @@
+{"cid":"sha256:2cd628ed90ced51ee04468e1cf8d1811b748cc7b3730c2b43f2ca8f455bcd239","kind":"rel","loaded":true,"name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src","t":"module_resolve"}
+{"cid":"sha256:079b7806d7457a3a32a8dd66d0c8ea06bfdfa5866e33903a291cc43450535630","kind":"std","loaded":true,"name":"std/json","t":"module_resolve"}
+{"cid":"sha256:b0de910c64590d63d8e1fbf2aa2bb1aea3eb3e8c693fb0119857a15b4b202afa","kind":"std","loaded":true,"name":"std/hash","t":"module_resolve"}
+{"cid":"sha256:2d128f8f8ea9368d1d88d2ca9a6b1202e3e1a2cf5fd974a11b3a697cca1db448","kind":"std","loaded":true,"name":"std/list","t":"module_resolve"}
+{"cid":"sha256:e1969d3d0193bc0d79d65c69bb895f85c5b96b9c3b5f182c98c63e71a47b057f","kind":"std","loaded":true,"name":"std/str","t":"module_resolve"}
+{"cid":"sha256:8dff43a3f5b27efa3286132064b6e04f5a2acd609e35bdb2907605fb1a984736","kind":"std","loaded":true,"name":"std/rec","t":"module_resolve"}
+{"cid":"sha256:f523fcc99ee519502933280febad7bf5f24c6baed6b8ec5c961287e7608ff9b5","kind":"rel","loaded":true,"name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/replay-core/src","t":"module_resolve"}
+{"cid":"sha256:b2fa4aac0886cb56a9222f5866662b6e8cb891c760c41be0386d58939d94e60e","t":"module_graph"}

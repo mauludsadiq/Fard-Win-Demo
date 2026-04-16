@@ -1,0 +1,11 @@
+{"cid":"sha256:7701bf9d4efba2076d32b363e407ee76efd955d451c9146e19d13cb39869f817","kind":"rel","loaded":true,"name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/dataframe-core/src","t":"module_resolve"}
+{"cid":"sha256:4d5cf38fab2a546127f9c38c7b560b5b0165ca3469aaf40af72ab324f432e335","kind":"std","loaded":true,"name":"std/csv","t":"module_resolve"}
+{"cid":"sha256:a5fb362955955f06d78746451c74c5e3458be27b2304bbb79b5139cef1cf4124","kind":"std","loaded":true,"name":"std/io","t":"module_resolve"}
+{"cid":"sha256:2d128f8f8ea9368d1d88d2ca9a6b1202e3e1a2cf5fd974a11b3a697cca1db448","kind":"std","loaded":true,"name":"std/list","t":"module_resolve"}
+{"cid":"sha256:8dff43a3f5b27efa3286132064b6e04f5a2acd609e35bdb2907605fb1a984736","kind":"std","loaded":true,"name":"std/rec","t":"module_resolve"}
+{"cid":"sha256:e24ec27eaa52e3141b71cb01e9c81dbc7a5c2da366de7987a26257d0132b4cad","kind":"std","loaded":true,"name":"std/int","t":"module_resolve"}
+{"cid":"sha256:2cd628ed90ced51ee04468e1cf8d1811b748cc7b3730c2b43f2ca8f455bcd239","kind":"rel","loaded":true,"name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src","t":"module_resolve"}
+{"cid":"sha256:079b7806d7457a3a32a8dd66d0c8ea06bfdfa5866e33903a291cc43450535630","kind":"std","loaded":true,"name":"std/json","t":"module_resolve"}
+{"cid":"sha256:b0de910c64590d63d8e1fbf2aa2bb1aea3eb3e8c693fb0119857a15b4b202afa","kind":"std","loaded":true,"name":"std/hash","t":"module_resolve"}
+{"cid":"sha256:e1969d3d0193bc0d79d65c69bb895f85c5b96b9c3b5f182c98c63e71a47b057f","kind":"std","loaded":true,"name":"std/str","t":"module_resolve"}
+{"cid":"sha256:89964751085354b298f42ef05e2acd058e1e772df585735cf376bba9e4589bdd","t":"module_graph"}

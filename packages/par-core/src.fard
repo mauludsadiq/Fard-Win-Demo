@@ -1,0 +1,49 @@
+import("std/list") as list
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/bench-core/src") as bench
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn sum_int(xs) {
+  list.fold(xs, 0, fn(acc, x) { acc + x })
+}
+
+fn par_map_filter_reduce(name, xs, map_fn, keep_fn) {
+  bench.measure(name, fn() {
+    let mapped = list.par_map(xs, map_fn) in
+    let kept = list.filter(mapped, keep_fn) in
+    {
+      count_in: list.len(xs),
+      count_out: list.len(kept),
+      sum: sum_int(kept),
+      values: kept
+    }
+  })
+}
+
+fn squares_over(name, xs, threshold) {
+  par_map_filter_reduce(
+    name,
+    xs,
+    fn(x) { x * x },
+    fn(x) { x > threshold }
+  )
+}
+
+fn summary_row(m) {
+  let v = rec.get(m, "value") in
+  {
+    name: rec.get(m, "name"),
+    duration_ms: rec.get(m, "duration_ms"),
+    count_in: rec.get(v, "count_in"),
+    count_out: rec.get(v, "count_out"),
+    sum: rec.get(v, "sum"),
+    receipt_digest: rec.get(rec.get(m, "receipt"), "receipt_digest")
+  }
+}
+
+{
+  sum_int: sum_int,
+  par_map_filter_reduce: par_map_filter_reduce,
+  squares_over: squares_over,
+  summary_row: summary_row
+}

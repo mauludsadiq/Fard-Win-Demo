@@ -1,0 +1,58 @@
+import("std/json") as json
+import("std/io") as io
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/bench-core/src") as bench
+
+fn decode_text(text) {
+  json.decode(text)
+}
+
+fn encode_value(value) {
+  json.encode(value)
+}
+
+fn canonical_text(value) {
+  json.canonicalize(value)
+}
+
+fn read_json(path) {
+  let raw = io.read_file(path) in
+  let text = rec.get(raw, "ok") in
+  let value = json.decode(text) in
+  {
+    path: path,
+    value: value,
+    receipt: receipt.attach("json.read", {
+      path: path,
+      value_digest: receipt.digest(value)
+    })
+  }
+}
+
+fn write_json(path, value) {
+  let text = json.canonicalize(value) in
+  let _ = io.write_file(path, text) in
+  {
+    path: path,
+    text: text,
+    receipt: receipt.attach("json.write", {
+      path: path,
+      text_digest: receipt.digest(text),
+      value_digest: receipt.digest(value)
+    })
+  }
+}
+
+fn parse_bench(name, text) {
+  bench.measure(name, fn() { json.decode(text) })
+}
+
+{
+  decode_text: decode_text,
+  encode_value: encode_value,
+  canonical_text: canonical_text,
+  read_json: read_json,
+  write_json: write_json,
+  parse_bench: parse_bench
+}

@@ -1,0 +1,20 @@
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn verify_payload(name, payload, deps, meta, receipt_obj) {
+  let expected = receipt.mk_receipt(name, payload, deps, meta) in
+  {
+    ok: rec.get(expected, "receipt_digest") == rec.get(receipt_obj, "receipt_digest"),
+    expected_digest: rec.get(expected, "receipt_digest"),
+    actual_digest: rec.get(receipt_obj, "receipt_digest")
+  }
+}
+
+fn verify_attached(name, payload, receipt_obj) {
+  verify_payload(name, payload, [], rec.empty(), receipt_obj)
+}
+
+{
+  verify_payload: verify_payload,
+  verify_attached: verify_attached
+}

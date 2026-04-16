@@ -1,0 +1,86 @@
+import("std/csv") as csv
+import("std/io") as io
+import("std/list") as list
+import("std/rec") as rec
+import("std/int") as int
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn parse_int(s) {
+  rec.get(int.parse(s), "v")
+}
+
+fn read_csv(path) {
+  let raw = io.read_file(path) in
+  let text = rec.get(raw, "ok") in
+  let rows = csv.parse(text) in
+  let _header = list.head(rows) in
+  let data = list.tail(rows) in
+  let records = list.map(data, fn(r) {
+    {
+      user_id: parse_int(list.get(r, 0)),
+      category: list.get(r, 1),
+      amount: parse_int(list.get(r, 2))
+    }
+  }) in
+  {
+    rows: records,
+    receipt: receipt.attach("df.read_csv", { path: path, n: list.len(records) })
+  }
+}
+
+fn filter(rows, f) {
+  list.filter(rows, f)
+}
+
+fn group_sum(rows) {
+  list.fold(rows, rec.empty(), fn(acc, r) {
+    let k = rec.get(r, "category") in
+    let v = rec.get(r, "amount") in
+    let prev = if rec.has(acc, k) then rec.get(acc, k) else 0 in
+    rec.merge(acc, { [k]: prev + v })
+  })
+}
+
+fn insert_desc(pairs, pair) {
+  if list.len(pairs) == 0 then [pair] else
+  let head = list.head(pairs) in
+  let tail = list.tail(pairs) in
+  if list.get(pair, 1) > list.get(head, 1) then
+    list.concat([[pair, head], tail])
+  else
+    list.concat([[head], insert_desc(tail, pair)])
+}
+
+fn sort_desc_pairs(map) {
+  let ks = rec.keys(map) in
+  let pairs = list.map(ks, fn(k) { [k, rec.get(map, k)] }) in
+  list.fold(pairs, [], fn(acc, p) { insert_desc(acc, p) })
+}
+
+fn pipeline(path) {
+  let df = read_csv(path) in
+  let rows = rec.get(df, "rows") in
+  let pos = filter(rows, fn(r) { rec.get(r, "amount") > 0 }) in
+  let sums = group_sum(pos) in
+  let sorted = sort_desc_pairs(sums) in
+  {
+    rows_in: list.len(rows),
+    rows_pos: list.len(pos),
+    grouped: sums,
+    sorted: sorted,
+    receipt: receipt.chain("df.pipeline", {
+      rows_in: list.len(rows),
+      rows_pos: list.len(pos),
+      grouped: sums,
+      sorted: sorted
+    }, [rec.get(df, "receipt")], rec.empty())
+  }
+}
+
+{
+  read_csv: read_csv,
+  filter: filter,
+  group_sum: group_sum,
+  sort_desc_pairs: sort_desc_pairs,
+  pipeline: pipeline
+}

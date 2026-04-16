@@ -1,0 +1,77 @@
+import("std/json") as json
+import("std/hash") as hash
+import("std/list") as list
+import("std/str") as str
+import("std/rec") as rec
+
+fn canonical_text(v) {
+  json.canonicalize(v)
+}
+
+fn digest(v) {
+  hash.sha256_text(canonical_text(v))
+}
+
+fn normalize_deps(deps) {
+  if deps == null then [] else deps
+}
+
+fn normalize_meta(meta) {
+  if meta == null then rec.empty() else meta
+}
+
+fn mk_receipt(name, payload, deps, meta) {
+  let deps1 = normalize_deps(deps)
+  let meta1 = normalize_meta(meta)
+  let payload_digest = digest(payload)
+  let deps_digest = digest(deps1)
+  let meta_digest = digest(meta1)
+  let body = {
+    kind: "fard_win_demo_receipt",
+    name: name,
+    payload_digest: payload_digest,
+    deps: deps1,
+    deps_digest: deps_digest,
+    meta: meta1,
+    meta_digest: meta_digest
+  } in
+  {
+    receipt: body,
+    receipt_digest: digest(body)
+  }
+}
+
+fn attach(name, payload) {
+  mk_receipt(name, payload, [], rec.empty())
+}
+
+fn attach_with_meta(name, payload, meta) {
+  mk_receipt(name, payload, [], meta)
+}
+
+fn chain(name, payload, parent_receipts, meta) {
+  let deps = list.map(parent_receipts, fn(r) {
+    if rec.has(r, "receipt_digest") then rec.get(r, "receipt_digest") else r
+  }) in
+  mk_receipt(name, payload, deps, meta)
+}
+
+fn summary(receipt_obj) {
+  let receipt = rec.get(receipt_obj, "receipt") in
+  {
+    name: rec.get(receipt, "name"),
+    payload_digest: rec.get(receipt, "payload_digest"),
+    deps_digest: rec.get(receipt, "deps_digest"),
+    receipt_digest: rec.get(receipt_obj, "receipt_digest")
+  }
+}
+
+{
+  canonical_text: canonical_text,
+  digest: digest,
+  mk_receipt: mk_receipt,
+  attach: attach,
+  attach_with_meta: attach_with_meta,
+  chain: chain,
+  summary: summary
+}

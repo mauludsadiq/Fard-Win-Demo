@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Open architecture docs",
+      "type": "shell",
+      "command": "echo Open docs/ARCHITECTURE.md docs/PACKAGE_CONTRACTS.md docs/BUILD_ORDER.md"
+    },
+    {
+      "label": "Build order reminder",
+      "type": "shell",
+      "command": "echo Start with packages/receipt-core, then replay-core, report-core, bench-core"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+import("std/json") as json
+import("std/io") as io
+import("std/list") as list
+import("std/str") as str
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn write_json(path, value) {
+  let text = json.canonicalize(value) in
+  let _ = io.write_file(path, text) in
+  {
+    path: path,
+    bytes: str.len(text),
+    digest: receipt.digest(value)
+  }
+}
+
+fn kv_line(k, v) {
+  str.concat("- ", str.concat(k, str.concat(": ", v)))
+}
+
+fn lines_to_text(lines) {
+  str.join(lines, "\n")
+}
+
+fn write_markdown(path, title, sections) {
+  let header = str.concat("# ", title) in
+  let body = lines_to_text(list.concat([[header, ""], sections])) in
+  let _ = io.write_file(path, body) in
+  {
+    path: path,
+    bytes: str.len(body),
+    digest: receipt.digest(body)
+  }
+}
+
+fn receipt_row(label, receipt_obj) {
+  let s = receipt.summary(receipt_obj) in
+  {
+    label: label,
+    name: rec.get(s, "name"),
+    payload_digest: rec.get(s, "payload_digest"),
+    deps_digest: rec.get(s, "deps_digest"),
+    receipt_digest: rec.get(s, "receipt_digest")
+  }
+}
+
+fn receipts_table(rows) {
+  let header = "| label | name | payload_digest | deps_digest | receipt_digest |" in
+  let sep = "|---|---|---|---|---|" in
+  let body = list.map(rows, fn(r) {
+    str.concat(
+      "| ",
+      str.concat(
+        rec.get(r, "label"),
+        str.concat(
+          " | ",
+          str.concat(
+            rec.get(r, "name"),
+            str.concat(
+              " | ",
+              str.concat(
+                rec.get(r, "payload_digest"),
+                str.concat(
+                  " | ",
+                  str.concat(
+                    rec.get(r, "deps_digest"),
+                    str.concat(" | ", str.concat(rec.get(r, "receipt_digest"), " |"))
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  }) in
+  list.concat([[header, sep], body])
+}
+
+{
+  write_json: write_json,
+  write_markdown: write_markdown,
+  receipt_row: receipt_row,
+  receipts_table: receipts_table,
+  kv_line: kv_line,
+  lines_to_text: lines_to_text
+}

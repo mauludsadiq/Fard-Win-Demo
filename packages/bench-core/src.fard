@@ -1,0 +1,43 @@
+import("std/datetime") as datetime
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn now_ms() {
+  datetime.now()
+}
+
+fn measure(name, thunk) {
+  let t0 = now_ms() in
+  let value = thunk() in
+  let t1 = now_ms() in
+  let payload = {
+    name: name,
+    started_ms: t0,
+    ended_ms: t1,
+    duration_ms: t1 - t0,
+    value: value
+  } in
+  let r = receipt.attach(name, payload) in
+  {
+    name: name,
+    started_ms: t0,
+    ended_ms: t1,
+    duration_ms: t1 - t0,
+    value: value,
+    receipt: r
+  }
+}
+
+fn value_row(m) {
+  {
+    name: rec.get(m, "name"),
+    duration_ms: rec.get(m, "duration_ms"),
+    receipt_digest: rec.get(rec.get(m, "receipt"), "receipt_digest")
+  }
+}
+
+{
+  now_ms: now_ms,
+  measure: measure,
+  value_row: value_row
+}

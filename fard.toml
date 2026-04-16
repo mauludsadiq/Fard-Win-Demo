@@ -1,0 +1,4 @@
+name = "fard-win-demo"
+version = "0.1.0"
+description = "Adoption demo repo for proving FARD against Python, Rust, and JavaScript painpoints."
+entry = "apps/control_tower/main.fard"

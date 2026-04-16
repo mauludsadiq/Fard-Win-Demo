@@ -1,0 +1,20 @@
+{"cid":"sha256:8dff43a3f5b27efa3286132064b6e04f5a2acd609e35bdb2907605fb1a984736","kind":"std","name":"std/rec","t":"module_resolve"}
+{"cid":"sha256:7701bf9d4efba2076d32b363e407ee76efd955d451c9146e19d13cb39869f817","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/dataframe-core/src","t":"module_resolve"}
+{"cid":"sha256:4d5cf38fab2a546127f9c38c7b560b5b0165ca3469aaf40af72ab324f432e335","kind":"std","name":"std/csv","t":"module_resolve"}
+{"cid":"sha256:a5fb362955955f06d78746451c74c5e3458be27b2304bbb79b5139cef1cf4124","kind":"std","name":"std/io","t":"module_resolve"}
+{"cid":"sha256:2d128f8f8ea9368d1d88d2ca9a6b1202e3e1a2cf5fd974a11b3a697cca1db448","kind":"std","name":"std/list","t":"module_resolve"}
+{"cid":"sha256:e24ec27eaa52e3141b71cb01e9c81dbc7a5c2da366de7987a26257d0132b4cad","kind":"std","name":"std/int","t":"module_resolve"}
+{"cid":"sha256:2cd628ed90ced51ee04468e1cf8d1811b748cc7b3730c2b43f2ca8f455bcd239","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src","t":"module_resolve"}
+{"cid":"sha256:079b7806d7457a3a32a8dd66d0c8ea06bfdfa5866e33903a291cc43450535630","kind":"std","name":"std/json","t":"module_resolve"}
+{"cid":"sha256:b0de910c64590d63d8e1fbf2aa2bb1aea3eb3e8c693fb0119857a15b4b202afa","kind":"std","name":"std/hash","t":"module_resolve"}
+{"cid":"sha256:e1969d3d0193bc0d79d65c69bb895f85c5b96b9c3b5f182c98c63e71a47b057f","kind":"std","name":"std/str","t":"module_resolve"}
+{"cid":"sha256:681655659f5d6ce35121c7c6963c21dea235c61054085f9ba0b31d56d54371e6","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/plot-core/src","t":"module_resolve"}
+{"cid":"sha256:775fa2a421ddf83aafe2f2be790e9dbf09c0003cfd370d96f821e26c64cea160","kind":"std","name":"std/bytes","t":"module_resolve"}
+{"cid":"sha256:e40c4ab44adf57632dc4a8312892de9002ac28e633b045540bb79ce0cf93c61c","kind":"std","name":"std/artifact","t":"module_resolve"}
+{"cid":"sha256:1a36cbc1324d68a2d19acef56a38dc292c5ab7ec9c913658e38e99d44e317484","kind":"std","name":"std/png","t":"module_resolve"}
+{"cid":"sha256:513b470d19e11225bc57cc76dee34008e9ae7f1c7f5f5bcab2a362dc4b16f3b1","kind":"rel","name":"/Users/g.bogans/Downloads/FARD_v0.5/packages/image-core/src/color","t":"module_resolve"}
+{"cid":"sha256:11115388ef5cf341f8c3a3f602e454d26fa4b503b005981f9f28d524402b6585","kind":"rel","name":"/Users/g.bogans/Downloads/FARD_v0.5/packages/image-core/src/raster","t":"module_resolve"}
+{"cid":"sha256:7bd2d1946da69141b41b02defac4336ccd03e11c4fec3ef232b09880867b759d","kind":"rel","name":"../../media-core/src/types","t":"module_resolve"}
+{"cid":"sha256:04f6d7bcc8fdd61a30221433987fd6d595cfd3322c46291896193bbc640a1a19","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/report-core/src","t":"module_resolve"}
+{"cid":"sha256:9bb85ba1337c0363b8242924a171c47dfb73d34bac63cb40e7d3443f51b6da9a","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/out/py_demo_hist.png","parents":[],"t":"artifact_out"}
+{"cid":"sha256:663fbaa604ddadff7d256b54b338f0d2526304f17a908ace3df5b5a7fa154263","t":"module_graph"}

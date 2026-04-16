@@ -1,1 +1,35 @@
-// py_pain_demo entrypoint to be implemented against the actual FARD runtime.
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/dataframe-core/src") as df
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/plot-core/src") as plot
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/report-core/src") as report
+
+let path = "/Users/g.bogans/Downloads/FARD WIN DEMO/data/sales_small.csv" in
+
+let result = df.pipeline(path) in
+
+let grouped = rec.get(result, "grouped") in
+let pairs = rec.get(result, "sorted") in
+
+let plot_out =
+  plot.write_histogram_png(
+    "/Users/g.bogans/Downloads/FARD WIN DEMO/out/py_demo_hist.png",
+    "Sales Histogram",
+    pairs,
+      96,
+      64
+  ) in
+
+let table =
+  report.receipts_table([
+    report.receipt_row("dataframe", rec.get(result, "receipt")),
+    report.receipt_row("plot", rec.get(plot_out, "receipt"))
+  ]) in
+
+{
+  rows_in: rec.get(result, "rows_in"),
+  rows_pos: rec.get(result, "rows_pos"),
+  grouped: grouped,
+  sorted: rec.get(result, "sorted"),
+  plot_path: rec.get(plot_out, "path"),
+  receipts_table: table
+}

@@ -1,0 +1,13 @@
+{"cid":"sha256:2d128f8f8ea9368d1d88d2ca9a6b1202e3e1a2cf5fd974a11b3a697cca1db448","kind":"std","name":"std/list","t":"module_resolve"}
+{"cid":"sha256:8dff43a3f5b27efa3286132064b6e04f5a2acd609e35bdb2907605fb1a984736","kind":"std","name":"std/rec","t":"module_resolve"}
+{"cid":"sha256:b6c50c00de6ca9217de97b1942b503c69803eb8c392b364a7b3234570114710e","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/bench-core/src","t":"module_resolve"}
+{"cid":"sha256:43e6d6e8b31c5e12fafa507548a53b63355236d4f4035ef85cecd55289ea16e3","kind":"std","name":"std/datetime","t":"module_resolve"}
+{"cid":"sha256:2cd628ed90ced51ee04468e1cf8d1811b748cc7b3730c2b43f2ca8f455bcd239","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src","t":"module_resolve"}
+{"cid":"sha256:079b7806d7457a3a32a8dd66d0c8ea06bfdfa5866e33903a291cc43450535630","kind":"std","name":"std/json","t":"module_resolve"}
+{"cid":"sha256:b0de910c64590d63d8e1fbf2aa2bb1aea3eb3e8c693fb0119857a15b4b202afa","kind":"std","name":"std/hash","t":"module_resolve"}
+{"cid":"sha256:e1969d3d0193bc0d79d65c69bb895f85c5b96b9c3b5f182c98c63e71a47b057f","kind":"std","name":"std/str","t":"module_resolve"}
+{"cid":"sha256:7e642edfae5a7ba98951e000af531bf91799dddcb19f3f6a17494d6f4ff00fcf","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/par-core/src","t":"module_resolve"}
+{"cid":"sha256:88fa5b87eb1712b27cbdb811c820e08212a41cf2da1220e9be6d0f33519275c6","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/json-core/src","t":"module_resolve"}
+{"cid":"sha256:a5fb362955955f06d78746451c74c5e3458be27b2304bbb79b5139cef1cf4124","kind":"std","name":"std/io","t":"module_resolve"}
+{"cid":"sha256:04f6d7bcc8fdd61a30221433987fd6d595cfd3322c46291896193bbc640a1a19","kind":"rel","name":"/Users/g.bogans/Downloads/FARD WIN DEMO/packages/report-core/src","t":"module_resolve"}
+{"cid":"sha256:a916fd3bad0960abc45b2206a4a23736de00d97cbd8682077f3a4e79bc7df742","t":"module_graph"}

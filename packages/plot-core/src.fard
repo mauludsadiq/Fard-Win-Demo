@@ -1,1 +1,96 @@
-// plot-core implementation surface to be defined against the exact FARD runtime.
+import("std/list") as list
+import("std/rec") as rec
+import("std/bytes") as bytes
+import("std/artifact") as artifact
+import("std/png") as png
+import("/Users/g.bogans/Downloads/FARD_v0.5/packages/image-core/src/color") as color
+import("/Users/g.bogans/Downloads/FARD_v0.5/packages/image-core/src/raster") as raster
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn max_value(pairs) {
+  list.fold(pairs, 1, fn(acc, p) {
+    let v = list.get(p, 1) in
+    if v > acc then v else acc
+  })
+}
+
+fn bar_color(i) {
+  if i % 3 == 0 then color.rgb(66, 135, 245)
+  else if i % 3 == 1 then color.rgb(245, 166, 35)
+  else color.rgb(52, 168, 83)
+}
+
+fn bg() { color.rgb(250, 250, 250) }
+fn axis() { color.rgb(30, 30, 30) }
+
+fn histogram_raster(pairs, width, height) {
+  let n = list.len(pairs) in
+  let maxv = max_value(pairs) in
+  let left_pad = 12 in
+  let right_pad = 8 in
+  let top_pad = 8 in
+  let bottom_pad = 12 in
+  let inner_w = width - left_pad - right_pad in
+  let inner_h = height - top_pad - bottom_pad in
+  let bar_w = if n == 0 then inner_w else inner_w / n in
+  raster.make(width, height, fn(x, y) {
+    let axis_y = height - 12 in
+    let axis_x = 12 in
+    let idx =
+      if x < left_pad || x >= left_pad + (bar_w * n) then -1
+      else (x - left_pad) / bar_w in
+    if idx >= 0 && idx < n then
+      let p = list.get(pairs, idx) in
+      let v = list.get(p, 1) in
+      let h = (v * inner_h) / maxv in
+      let x0 = left_pad + (idx * bar_w) + 1 in
+      let x1 = left_pad + ((idx + 1) * bar_w) - 2 in
+      let y0 = top_pad + (inner_h - h) in
+      let y1 = top_pad + inner_h in
+      if x >= x0 && x <= x1 && y >= y0 && y <= y1 then bar_color(idx)
+      else if y == axis_y || x == axis_x then axis()
+      else bg()
+    else if y == axis_y || x == axis_x then axis()
+    else bg()
+  })
+}
+
+fn rgb_bytes_from_pixels(pixels) {
+  let ints = list.flat_map(pixels, fn(px) {
+    [rec.get(px, "r"), rec.get(px, "g"), rec.get(px, "b")]
+  }) in
+  bytes.of_list(ints)
+}
+
+fn write_histogram_png(path, title, pairs, width, height) {
+  let img = histogram_raster(pairs, width, height) in
+  let spec = rec.get(img, "spec") in
+  let pixels = rec.get(img, "pixels") in
+  let width1 = rec.get(spec, "width") in
+  let height1 = rec.get(spec, "height") in
+  let raw = rgb_bytes_from_pixels(pixels) in
+  let png_bytes = png.encode_rgb(width1, height1, raw) in
+  let _ = artifact.emit(path, bytes.to_list(png_bytes)) in
+  {
+    path: path,
+    title: title,
+    width: width1,
+    height: height1,
+    bars: list.len(pairs),
+    receipt: receipt.attach("plot.histogram_png", {
+      path: path,
+      title: title,
+      width: width1,
+      height: height1,
+      bars: list.len(pairs),
+      pairs: pairs
+    })
+  }
+}
+
+{
+  max_value: max_value,
+  histogram_raster: histogram_raster,
+  rgb_bytes_from_pixels: rgb_bytes_from_pixels,
+  write_histogram_png: write_histogram_png
+}

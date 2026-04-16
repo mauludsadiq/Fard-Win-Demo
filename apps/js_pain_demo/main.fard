@@ -1,1 +1,49 @@
-// js_pain_demo entrypoint to be implemented against the actual FARD runtime.
+import("std/list") as list
+import("std/rec") as rec
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/bench-core/src") as bench
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/json-core/src") as j
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/dom-core/src") as dom
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/report-core/src") as report
+
+let startup =
+  bench.measure("startup_probe", fn() {
+    { ok: true, modules: 4 }
+  }) in
+
+let json_text = "{\"users\":[{\"id\":1,\"name\":\"A\"},{\"id\":2,\"name\":\"B\"}],\"meta\":{\"env\":\"browser\"}}" in
+let json_run = j.parse_bench("json_parse_probe", json_text) in
+
+let tree =
+  dom.node("div", { id: "root" }, [
+    dom.node("h1", {}, ["FARD JS Demo"]),
+    dom.node("ul", {}, [
+      dom.node("li", {}, ["User A"]),
+      dom.node("li", {}, ["User B"])
+    ])
+  ]) in
+
+let dom_run =
+  bench.measure("dom_build_probe", fn() {
+    dom.render(tree)
+  }) in
+
+let rows = [
+  report.receipt_row("startup", rec.get(startup, "receipt")),
+  report.receipt_row("json", rec.get(json_run, "receipt")),
+  report.receipt_row("dom", rec.get(dom_run, "receipt"))
+] in
+
+{
+  startup: bench.value_row(startup),
+  json: {
+    name: rec.get(json_run, "name"),
+    duration_ms: rec.get(json_run, "duration_ms"),
+    receipt_digest: rec.get(rec.get(json_run, "receipt"), "receipt_digest")
+  },
+  dom: {
+    name: rec.get(dom_run, "name"),
+    duration_ms: rec.get(dom_run, "duration_ms"),
+    receipt_digest: rec.get(rec.get(dom_run, "receipt"), "receipt_digest")
+  },
+  receipts_table: report.receipts_table(rows)
+}

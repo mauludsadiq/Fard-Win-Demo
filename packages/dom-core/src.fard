@@ -1,1 +1,72 @@
-// dom-core implementation surface to be defined against the exact FARD runtime.
+import("std/list") as list
+import("std/rec") as rec
+import("std/str") as str
+import("std/type") as type
+import("/Users/g.bogans/Downloads/FARD WIN DEMO/packages/receipt-core/src") as receipt
+
+fn node(tag, props, children) {
+  {
+    tag: tag,
+    props: if props == null then rec.empty() else props,
+    children: if children == null then [] else children
+  }
+}
+
+fn render_attr_pair(k, v) {
+  str.concat(" ", str.concat(k, str.concat("=\"", str.concat(v, "\""))))
+}
+
+fn render_attrs(props) {
+  let ks = rec.keys(props) in
+  str.join(
+    list.map(ks, fn(k) { render_attr_pair(k, rec.get(props, k)) }),
+    ""
+  )
+}
+
+fn render_child(c) {
+  if type.of(c) == "text" then c else render(c)
+}
+
+fn render_children(children) {
+  str.join(list.map(children, render_child), "")
+}
+
+fn render(tree) {
+  let tag = rec.get(tree, "tag") in
+  let props = rec.get(tree, "props") in
+  let children = rec.get(tree, "children") in
+  str.concat(
+    "<",
+    str.concat(
+      tag,
+      str.concat(
+        render_attrs(props),
+        str.concat(
+          ">",
+          str.concat(
+            render_children(children),
+            str.concat("</", str.concat(tag, ">"))
+          )
+        )
+      )
+    )
+  )
+}
+
+fn render_with_receipt(tree) {
+  let html = render(tree) in
+  {
+    html: html,
+    receipt: receipt.attach("dom.render", {
+      html_digest: receipt.digest(html),
+      tree_digest: receipt.digest(tree)
+    })
+  }
+}
+
+{
+  node: node,
+  render: render,
+  render_with_receipt: render_with_receipt
+}
